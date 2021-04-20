@@ -45,7 +45,7 @@ const useStyles = createUseStyles({
 
 function TodoListItem(props) {
   const classes = useStyles();
-  const { title, status } = props.todo;
+  const { title, status, _id } = props.todo;
   const itemProps = {};
   const { todoAction } = useContext(TodoListContext);
 
@@ -56,7 +56,7 @@ function TodoListItem(props) {
   else {
     itemProps.className = classes.item;
     itemProps.onClick = () => {
-      todoAction({ type: "COMPLETE", id: props.todoId });
+      todoAction({ type: "COMPLETE", id: props.todoId, _id });
     };
   }
 
@@ -68,7 +68,7 @@ function TodoListItem(props) {
           className="close"
           onClick={(e) => {
             e.stopPropagation();
-            todoAction({ type: "DELETE", id: props.todoId });
+            todoAction({ type: "DELETE", id: props.todoId, _id });
           }}
         >
           ×

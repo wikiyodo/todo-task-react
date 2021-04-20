@@ -16,7 +16,7 @@ function TodoList(props) {
 
   return (
     <ul className={classes.list}>
-      {todos.map((todo, i) => (
+      {todos.list.map((todo, i) => (
         <TodoListItem todo={todo} todoId={i} key={i + todo.title} />
       ))}
     </ul>

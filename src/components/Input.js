@@ -48,6 +48,11 @@ const useStyles = createUseStyles({
   inputWrapper: {
     display: "flex",
   },
+  error: {
+    backgroundColor: "#FF0000",
+    padding: "6px 12px",
+    color: "#fff",
+  },
 });
 
 function HeaderInput(props) {
@@ -55,6 +60,17 @@ function HeaderInput(props) {
   const classes = useStyles();
   let { title = "To Do", placeholder = "Title...", btnLabel = "Add" } = props;
   const { todos, todoAction } = useContext(TodoListContext);
+
+  const handleSubmition = () => {
+    todoAction({ item: input, type: "ADD_NEW" });
+    setInput("");
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSubmition();
+    }
+  };
 
   return (
     <div id="myDIV" className={classes.wrapper}>
@@ -68,17 +84,13 @@ function HeaderInput(props) {
           maxLength={60}
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
-        <span
-          className={classes.button}
-          onClick={() => {
-            todoAction({ item: input, type: "ADD_NEW" });
-            setInput("");
-          }}
-        >
+        <span className={classes.button} onClick={handleSubmition}>
           {btnLabel}
         </span>
       </div>
+      {props.error ? <div className={classes.error}>{props.error}</div> : null}
     </div>
   );
 }
