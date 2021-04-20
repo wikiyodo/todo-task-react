@@ -1,4 +1,5 @@
 import axios from "axios";
+console.log("PROSPCE::: ", process.env.API_ENDPOINT_URL);
 const baseUrl = process.env.API_ENDPOINT_URL || `http://localhost:3004/`;
 
 const parseUrl = (url, params = {}) => {
