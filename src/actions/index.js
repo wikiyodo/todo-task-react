@@ -1,8 +1,10 @@
 import axios from "axios";
-console.log("PROSPCE::: ", process.env.API_ENDPOINT_URL);
+console.log("PROSPCE::: ", process.env);
 const baseUrl = process.env.API_ENDPOINT_URL || `http://localhost:3004/`;
 
 const parseUrl = (url, params = {}) => {
+  console.log("PROSPCE2::: ", process.env);
+
   let keys = Object.keys(params);
 
   for (let key of keys) {
