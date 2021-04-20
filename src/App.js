@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import TodoList from "./components/todoList";
+import HeaderInput from "./components/Input";
+import { useReducer, createContext } from "react";
+
+const todo = {
+  list: [],
+};
+
+function reducer(state, payload) {
+  switch (payload.type) {
+    case "ADD_NEW":
+      let { item } = payload;
+
+      if (item == "") return state;
+      item = { title: item, status: "pending" };
+
+      return [...state, item];
+    case "COMPLETE":
+      state[payload.id].status = "completed";
+      console.log(state);
+      return [...state];
+    case "DELETE":
+      state[payload.id].status = "deleted";
+      console.log(state);
+      return [...state];
+    default:
+      return state;
+  }
+}
+export const TodoListContext = createContext();
 
 function App() {
+  const [todos, todoAction] = useReducer(reducer, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TodoListContext.Provider value={{ todos, todoAction }}>
+        <HeaderInput />
+        <TodoList />
+      </TodoListContext.Provider>
     </div>
   );
 }
